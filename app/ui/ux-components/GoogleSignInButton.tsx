@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import Image from 'next/image'
-import icon from '../../../public/Fremantle positive.png'
+import icon from '../../../public/FM.jpg'
 import styles from './GoogleSignInButton.module.css'
 
 export default function GoogleSignInButton({ onClick }: { onClick: () => void }) {
@@ -22,7 +22,7 @@ export default function GoogleSignInButton({ onClick }: { onClick: () => void })
       <div className={styles.buttonstate}></div>
       <div className={styles.buttoncontentwrapper}>
         <div className={styles.buttonicon}>
-          <Image priority src={icon} width={23} alt="Fremantle" />
+          <Image priority src={icon} width={23} alt="FM" />
         </div>
         <span className={styles.buttoncontents}>Proceed to application</span>
       </div>

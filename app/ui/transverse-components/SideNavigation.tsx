@@ -79,13 +79,13 @@ export default function SideNav() {
             cursor: 'pointer',
           }}
         >
-          <Image priority src={'/Fremantle positive.png'} width={110} alt="Fremantle" style={{ transform: 'rotate(-90deg)' }} />
+          <Image priority src={'/Fremantle negative.png'} width={110} alt="Fremantle" style={{ transform: 'rotate(-90deg)' }} />
         </Box>
       )}
       {open && (
         <List dense>
           <ListItem onClick={() => setOpen(!open)} sx={{ px: 2.5, pt: 2, cursor: 'pointer' }}>
-            <Image priority src={'/Fremantle positive.png'} width={200} alt="Fremantle" />
+            <Image priority src={'/Fremantle negative.png'} width={200} alt="Fremantle" />
           </ListItem>
 
           {Object.values(pages).map(({ name, description, href, status }) => (
