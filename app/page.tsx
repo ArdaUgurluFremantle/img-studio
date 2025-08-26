@@ -30,7 +30,7 @@ export default function Page() {
   return (
     <main>
       <Box justifyContent="left" minHeight="100vh" pl={15} pt={10}>
-        <Image priority src={'/FM.jpg'} width={800} alt="FM" />
+        <Image priority src={'/Fremantle positive.png'} width={800} alt="Fremantle" />
         <Box sx={{ pl: 2 }}>
           <GoogleSignInButton onClick={handleClick} />
         </Box>
