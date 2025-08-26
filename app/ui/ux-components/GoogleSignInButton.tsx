@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import icon from '../../../public/cloudicon.svg'
 import Image from 'next/image'
+import icon from '../../../public/FM.jpg'
 import styles from './GoogleSignInButton.module.css'
 
 export default function GoogleSignInButton({ onClick }: { onClick: () => void }) {
@@ -22,7 +22,7 @@ export default function GoogleSignInButton({ onClick }: { onClick: () => void })
       <div className={styles.buttonstate}></div>
       <div className={styles.buttoncontentwrapper}>
         <div className={styles.buttonicon}>
-          <Image priority src={icon} width={23} alt="Google Cloud" />
+          <Image priority src={icon} width={23} alt="FM" />
         </div>
         <span className={styles.buttoncontents}>Proceed to application</span>
       </div>

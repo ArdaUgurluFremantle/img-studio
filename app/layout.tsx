@@ -30,6 +30,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="icon" href="/FM.jpg" />
       </head>
       <body>
         <ContextProvider>

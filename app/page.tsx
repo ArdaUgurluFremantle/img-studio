@@ -17,7 +17,6 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Image from 'next/image'
-import icon from '../public/ImgStudioLogo.svg'
 import GoogleSignInButton from './ui/ux-components/GoogleSignInButton'
 import { pages } from './routes'
 import { useRouter } from 'next/navigation'
@@ -31,7 +30,7 @@ export default function Page() {
   return (
     <main>
       <Box justifyContent="left" minHeight="100vh" pl={15} pt={10}>
-        <Image priority src={icon} width={800} alt="ImgStudio" />
+        <Image priority src={'/FM.jpg'} width={800} alt="FM" />
         <Box sx={{ pl: 2 }}>
           <GoogleSignInButton onClick={handleClick} />
         </Box>
