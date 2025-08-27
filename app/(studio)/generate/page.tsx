@@ -21,6 +21,7 @@ import GenerateForm from '../../ui/generate-components/GenerateForm'
 import { useEffect, useRef, useState } from 'react'
 import { imageGenerationUtils, ImageI, ImageRandomPrompts } from '../../api/generate-image-utils'
 import OutputImagesDisplay from '../../ui/transverse-components/ImagenOutputImagesDisplay'
+import { autoSaveMediaBatch } from '@/app/api/export-auto'
 import { appContextDataDefault, useAppContext } from '../../context/app-context'
 import { Typography } from '@mui/material'
 
@@ -183,19 +184,29 @@ export default function Page() {
 
   // Handler for successful IMAGE generation completion
   const [isPromptReplayAvailable, setIsPromptReplayAvailable] = useState(true)
-  const handleImageGeneration = (newImages: ImageI[]) => {
+  const handleImageGeneration = async (newImages: ImageI[]) => {
     setGeneratedImages(newImages)
     setIsLoading(false)
     setGeneratedVideos([])
     setGenerationErrorMsg('')
+    // Auto-save images metadata (non-blocking)
+    try {
+      const exportFields = appContext?.exportMetaOptions || appContextDataDefault.exportMetaOptions
+      await autoSaveMediaBatch(newImages, exportFields)
+    } catch {}
   }
 
   // Handler for successful VIDEO generation completion (called by polling effect)
-  const handleVideoGenerationComplete = (newVideos: VideoI[]) => {
+  const handleVideoGenerationComplete = async (newVideos: VideoI[]) => {
     setGeneratedVideos(newVideos)
     setGeneratedImages([])
     setGenerationErrorMsg('')
     // isLoading is set to false within the polling effect's stopPolling call
+    // Auto-save videos metadata (non-blocking)
+    try {
+      const exportFields = appContext?.exportMetaOptions || appContextDataDefault.exportMetaOptions
+      await autoSaveMediaBatch(newVideos, exportFields)
+    } catch {}
   }
 
   // Handler called by GenerateForm ONLY when video generation is initiated successfully

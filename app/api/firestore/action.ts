@@ -65,7 +65,7 @@ export async function addNewFirestoreEntry(
   }
 }
 
-export async function fetchDocumentsInBatches(lastVisibleDocument?: any, filters?: any) {
+export async function fetchDocumentsInBatches(lastVisibleDocument?: any, filters?: any, userID?: string) {
   const batchSize = 24
 
   const collection = firestore.collection('metadata')
@@ -82,6 +82,11 @@ export async function fetchDocumentsInBatches(lastVisibleDocument?: any, filters
       if (combinedFilterEntries.length > 0)
         query = query.where('combinedFilters', 'array-contains-any', combinedFilterEntries)
     }
+  }
+
+  // Enforce per-user visibility
+  if (userID) {
+    query = query.where('author', '==', userID)
   }
 
   query = query.orderBy('timestamp', 'desc').limit(batchSize)
@@ -128,6 +133,9 @@ export async function fetchDocumentsInBatches(lastVisibleDocument?: any, filters
         if (combinedFilterEntries.length > 0)
           nextPageQuery = nextPageQuery.where('combinedFilters', 'array-contains-any', combinedFilterEntries)
       }
+    }
+    if (userID) {
+      nextPageQuery = nextPageQuery.where('author', '==', userID)
     }
 
     nextPageQuery = nextPageQuery
