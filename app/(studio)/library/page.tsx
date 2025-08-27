@@ -19,7 +19,6 @@ import Box from '@mui/material/Box'
 import { useCallback, useEffect, useState } from 'react'
 
 import { Button, Collapse, IconButton, Stack, Typography } from '@mui/material'
-import { useAppContext } from '../../context/app-context'
 
 import theme from '../../theme'
 import { getSignedURL } from '@/app/api/cloud-storage/action'
@@ -43,7 +42,6 @@ const iconSx = {
 }
 
 export default function Page() {
-  const { appContext } = useAppContext()
   const [errorMsg, setErrorMsg] = useState('')
   const [isMediasLoading, setIsMediasLoading] = useState(false)
   const [fetchedMediasByPage, setFetchedMediasByPage] = useState<MediaMetadataWithSignedUrl[][]>([])
@@ -75,9 +73,8 @@ export default function Page() {
 
       try {
         let res
-        const userID = appContext?.userID || ''
-        if (Object.values(selectedFilters).length === 0) res = await fetchDocumentsInBatches(explicitFetchCursor, undefined, userID)
-        else res = await fetchDocumentsInBatches(explicitFetchCursor, selectedFilters, userID)
+        if (Object.values(selectedFilters).length === 0) res = await fetchDocumentsInBatches(explicitFetchCursor)
+        else res = await fetchDocumentsInBatches(explicitFetchCursor, selectedFilters)
 
         if (res.error) throw Error(res.error.replaceAll('Error: ', ''))
 
@@ -261,8 +258,13 @@ export default function Page() {
         <Typography display="inline" variant="h1" color={palette.text.secondary} sx={{ fontSize: '1.8rem' }}>
           {'Library/'}
         </Typography>
-        <Typography display="inline" variant="h1" color={palette.primary.main} sx={{ fontWeight: 500, fontSize: '2rem', pl: 1 }}>
-          {'Library'}
+        <Typography
+          display="inline"
+          variant="h1"
+          color={palette.primary.main}
+          sx={{ fontWeight: 500, fontSize: '2rem', pl: 1 }}
+        >
+          {'Shared content'}
         </Typography>
       </Box>
       <Collapse
