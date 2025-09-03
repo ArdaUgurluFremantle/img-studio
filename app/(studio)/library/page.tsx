@@ -22,7 +22,6 @@ import { Button, Collapse, IconButton, Stack, Typography } from '@mui/material'
 
 import theme from '../../theme'
 import { getSignedURL } from '@/app/api/cloud-storage/action'
-import { useAppContext } from '@/app/context/app-context'
 import { ExportAlerts } from '@/app/ui/transverse-components/ExportAlerts'
 import { fetchDocumentsInBatches, firestoreDeleteBatch } from '@/app/api/firestore/action'
 import { MediaMetadataI, MediaMetadataWithSignedUrl } from '@/app/api/export-utils'
@@ -43,7 +42,6 @@ const iconSx = {
 }
 
 export default function Page() {
-  const { appContext } = useAppContext()
   const [errorMsg, setErrorMsg] = useState('')
   const [isMediasLoading, setIsMediasLoading] = useState(false)
   const [fetchedMediasByPage, setFetchedMediasByPage] = useState<MediaMetadataWithSignedUrl[][]>([])
@@ -66,16 +64,12 @@ export default function Page() {
         setLastVisibleDocument(null)
       }
 
-      // Build filters from UI and enforce author = current user by default
       const selectedFilters = Object.entries(currentFiltersArg ?? {})
         .filter(([, value]) => (Array.isArray(value) ? value.length > 0 : value !== undefined && value !== ''))
         .reduce((acc, [key, value]) => {
           acc[key] = value
           return acc
         }, {} as any)
-
-      // Enforce user-only view unless explicitly overridden
-      if (!selectedFilters.author && appContext?.userID) selectedFilters.author = appContext.userID
 
       try {
         let res
@@ -175,9 +169,9 @@ export default function Page() {
 
   // This single useEffect handles both initial load and subsequent filter changes.
   useEffect(() => {
-    // A new fetch from the beginning is triggered whenever the filters or user context change.
+    // A new fetch from the beginning is triggered whenever the filters change.
     fetchDataAndSignedUrls(filters, null, true)
-  }, [filters, appContext?.userID, fetchDataAndSignedUrls])
+  }, [filters, fetchDataAndSignedUrls])
 
   const handleLoadMore = useCallback(async () => {
     if (lastVisibleDocument && isMorePageToLoad) {
@@ -270,7 +264,7 @@ export default function Page() {
           color={palette.primary.main}
           sx={{ fontWeight: 500, fontSize: '2rem', pl: 1 }}
         >
-          {'My content'}
+          {'Shared content'}
         </Typography>
       </Box>
       <Collapse

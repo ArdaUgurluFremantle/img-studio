@@ -73,11 +73,6 @@ export async function fetchDocumentsInBatches(lastVisibleDocument?: any, filters
 
   let query = collection
 
-  // Optional: filter by author (show only current user's content)
-  if (filters && typeof filters.author === 'string' && filters.author !== '') {
-    query = query.where('author', '==', filters.author)
-  }
-
   if (filters) {
     const filterEntries = Object.entries(filters).filter(([, values]) => Array.isArray(values) && values.length > 0)
     if (filterEntries.length > 0) {
@@ -124,9 +119,6 @@ export async function fetchDocumentsInBatches(lastVisibleDocument?: any, filters
 
     // Check if there's a next page
     let nextPageQuery = collection
-    if (filters && typeof filters.author === 'string' && filters.author !== '') {
-      nextPageQuery = nextPageQuery.where('author', '==', filters.author)
-    }
     if (filters) {
       const filterEntries = Object.entries(filters).filter(([, values]) => Array.isArray(values) && values.length > 0)
       if (filterEntries.length > 0) {
