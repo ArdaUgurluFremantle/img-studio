@@ -22,7 +22,7 @@ import { useEffect, useRef, useState } from 'react'
 import { imageGenerationUtils, ImageI, ImageRandomPrompts } from '../../api/generate-image-utils'
 import OutputImagesDisplay from '../../ui/transverse-components/ImagenOutputImagesDisplay'
 import { appContextDataDefault, useAppContext } from '../../context/app-context'
-import { Typography } from '@mui/material'
+import { Typography, Button } from '@mui/material'
 
 import theme from '../../theme'
 const { palette } = theme
@@ -346,16 +346,28 @@ export default function Page() {
     <Box p={5} sx={{ maxHeight: '100vh' }}>
       <Grid wrap="nowrap" container spacing={6} direction="row" columns={2}>
         <Grid size={1.1} flex={0} sx={{ maxWidth: 700, minWidth: 610 }}>
-          <ChipGroup
-            width={'100%'}
-            required={false}
-            options={['Generate an Image', 'Generate a Video']}
-            value={generationMode}
-            disabled={isLoading || process.env.NEXT_PUBLIC_VEO_ENABLED !== 'true'}
-            onChange={generationModeSwitch}
-            handleChipClick={generationModeSwitch}
-            weight={500}
-          />
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
+            <ChipGroup
+              width={'100%'}
+              required={false}
+              options={['Generate an Image', 'Generate a Video']}
+              value={generationMode}
+              disabled={isLoading || process.env.NEXT_PUBLIC_VEO_ENABLED !== 'true'}
+              onChange={generationModeSwitch}
+              handleChipClick={generationModeSwitch}
+              weight={500}
+            />
+            <Button
+              href="https://cloud.google.com/vertex-ai/generative-ai/pricing#veo"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small"
+              variant="text"
+              sx={{ whiteSpace: 'nowrap' }}
+            >
+              {'Pricing'}
+            </Button>
+          </Box>
 
           {generationMode === 'Generate an Image' && (
             <GenerateForm
