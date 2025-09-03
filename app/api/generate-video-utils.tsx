@@ -51,7 +51,7 @@ export const GenerateVideoFormFields = {
   },
   modelVersion: {
     type: 'select',
-    default: 'veo-3.0-generate-preview',
+    default: 'veo-3.0-fast-generate-preview',
     options: [
       {
         value: 'veo-3.0-generate-preview',

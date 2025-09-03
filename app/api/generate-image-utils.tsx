@@ -80,7 +80,7 @@ export const GenerateImageFormFields = {
   },
   modelVersion: {
     type: 'select',
-    default: 'imagen-4.0-generate-preview-06-06',
+    default: 'imagen-4.0-fast-generate-preview-06-06',
     options: [
       {
         value: 'imagen-4.0-generate-preview-06-06',
@@ -104,7 +104,7 @@ export const GenerateImageFormFields = {
   sampleCount: {
     label: 'Quantity of outputs',
     type: 'chip-group',
-    default: '4',
+    default: '1',
     options: ['1', '2', '3', '4'],
     isDataResetable: false,
     isFullPromptAdditionalField: false,
