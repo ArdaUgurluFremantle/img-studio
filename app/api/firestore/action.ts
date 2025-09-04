@@ -73,13 +73,10 @@ export async function fetchDocumentsInBatches(lastVisibleDocument?: any, filters
 
   let query = collection
 
-    if (filters?.author) {
+  if (filters?.author) {
     if (typeof filters.author === 'string') {
       query = query.where('author', '==', filters.author)
-    } else if (Array.isArray(filters.author) && filters.author.length > 0) {
-      // Not: 'in' ile aynı sorguda 'array-contains-any' kullanılamaz.
-      query = query.where('author', 'in', filters.author.slice(0, 10))
-    }
+    } 
   }
   if (filters) {
     const filterEntries = Object.entries(filters).filter(([, values]) => Array.isArray(values) && values.length > 0)
