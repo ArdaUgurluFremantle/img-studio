@@ -73,11 +73,6 @@ export async function fetchDocumentsInBatches(lastVisibleDocument?: any, filters
 
   let query = collection
 
-  if (filters?.author) {
-    if (typeof filters.author === 'string') {
-      query = query.where('author', '==', filters.author)
-    } 
-  }
   if (filters) {
     const filterEntries = Object.entries(filters).filter(([, values]) => Array.isArray(values) && values.length > 0)
     if (filterEntries.length > 0) {
